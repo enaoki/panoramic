@@ -8,6 +8,7 @@ module Panoramic
       return [] if @@resolver_options[:only] && !@@resolver_options[:only].include?(prefix)
 
       path = build_path(name, prefix)
+      Rails.logger.debug "Conditions: #{prefix} #{name} (#{path}) #{details[:locale]} #{details[:format]} #{details[:handlers]}"
       conditions = {
         :path    => path,
         :locale  => [normalize_array(details[:locale]).first, nil],
