@@ -8,7 +8,7 @@ module Panoramic
       return [] if @@resolver_options[:only] && !@@resolver_options[:only].include?(prefix)
 
       path = build_path(name, prefix)
-      Rails.logger.debug "Prefix #{prefix} Name #{name} Path (#{path}) Locale #{details[:locale]} Format #{details[:format]} Handlers #{details[:handlers]} Additional #{details[:additional_criteria]}"
+      Rails.logger.info "Prefix #{prefix} Name #{name} Path (#{path}) Locale #{details[:locale]} Format #{details[:format]} Handlers #{details[:handlers]} Additional #{details[:additional_criteria]}"
       conditions = {
         :path    => path,
         :locale  => [normalize_array(details[:locale]).first, nil],
@@ -17,7 +17,7 @@ module Panoramic
         :partial => partial || false
       }.merge(details[:additional_criteria].presence || {})
       
-      Rails.logger.debug "Conditions: #{conditions}"
+      Rails.logger.info "Conditions: #{conditions}"
 
       @@model.find_model_templates(conditions).map do |record|
         Rails.logger.debug "Rendering template from database: #{path} (#{record.format})"
